@@ -8,10 +8,10 @@ package user
 
 import (
 	"book-lending-api/config"
+	"book-lending-api/internal/middleware"
 	"book-lending-api/internal/user/delivery/http"
 	"book-lending-api/internal/user/repository"
 	"book-lending-api/internal/user/usecase"
-	"book-lending-api/pkg/authentication"
 	"book-lending-api/pkg/db"
 	"book-lending-api/pkg/logger"
 	"gorm.io/gorm"
@@ -24,7 +24,7 @@ func InitUserHandler() *http.Handler {
 	db := ProvideDatabase(envConfig)
 	logrusLogger := logger.NewLogger()
 	userRepository := repository.NewMySQLRepository(db, logrusLogger)
-	jwtService := authentication.NewJWTService(envConfig)
+	jwtService := middleware.NewJWTService(envConfig)
 	userUsecase := usecase.NewUserUseCase(userRepository, jwtService)
 	handler := http.NewHandler(userUsecase, logrusLogger)
 	return handler

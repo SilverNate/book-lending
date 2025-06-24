@@ -9,7 +9,6 @@ import (
 	"book-lending-api/internal/user/delivery/http"
 	"book-lending-api/internal/user/repository"
 	"book-lending-api/internal/user/usecase"
-	"book-lending-api/pkg/authentication"
 	"book-lending-api/pkg/db"
 	"book-lending-api/pkg/logger"
 	"github.com/google/wire"
@@ -21,8 +20,8 @@ func InitUserHandler() *http.Handler {
 		repository.NewMySQLRepository,
 		wire.Bind(new(repository.IUserRepository), new(*repository.UserRepository)),
 
-		authentication.NewJWTService,
-		wire.Bind(new(middleware.IJWTService), new(*authentication.JwtService)),
+		middleware.NewJWTService,
+		wire.Bind(new(middleware.IJWTService), new(*middleware.JwtService)),
 
 		usecase.NewUserUseCase,
 		wire.Bind(new(usecase.IUserUsecase), new(*usecase.UserUsecase)),
