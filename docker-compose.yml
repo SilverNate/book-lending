@@ -35,14 +35,17 @@ services:
   migrate:
     image: migrate/migrate
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     volumes:
       - ./migrations:/migrations
-    command: [
-      "-path", "/migrations",
-      "-database", "mysql://bookuser:bookpass@tcp(mysql:3306)/bookdb",
-      "up"
-    ]
+    entrypoint: [ "migrate" ]
+    command:
+      [
+        "-source", "file:///migrations",
+        "-database", "mysql://bookuser:bookpass@tcp(mysql:3306)/bookdb?parseTime=true",
+        "up"
+      ]
 
 volumes:
   db_data:

@@ -26,7 +26,7 @@ func (h *Handler) Register(c *gin.Context) {
 	}
 	err := h.uc.Register(c.Request.Context(), input)
 	if err != nil {
-		h.log.Error("register failed: ", err)
+		h.log.Error("registration failed: ", err)
 		response.Internal(c, "Failed to register user")
 		return
 	}
