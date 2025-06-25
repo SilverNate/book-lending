@@ -1,3 +1,5 @@
+![CI](https://github.com/SilverNate/book-lending-api/actions/workflows/ci.yml/badge.svg)
+
 # 📚 Book Lending API
 
 A simple RESTful API for borrowing and returning books, built with Go, Gin, MySQL, and Redis. Follows Clean Architecture and SOLID principles with dependency injection using Wire.
