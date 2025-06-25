@@ -1,4 +1,4 @@
-![CI](https://github.com/SilverNate/book-lending-api/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/SilverNate/book-lending/actions/workflows/ci.yml/badge.svg)
 
 # 📚 Book Lending API
 
