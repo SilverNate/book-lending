@@ -4,7 +4,9 @@ import (
 	"book-lending-api/internal/book/dto"
 	"book-lending-api/internal/book/entity"
 	"book-lending-api/internal/book/repository"
+	log "book-lending-api/pkg/logger"
 	"context"
+	"errors"
 	"fmt"
 	"github.com/sirupsen/logrus"
 )
@@ -19,7 +21,17 @@ func NewBookUseCase(r repository.IBookRepository, log *logrus.Logger) *BookUseca
 }
 
 func (uc *BookUsecase) AddBook(ctx context.Context, input dto.CreateBookRequest) error {
-	uc.log.Infof("create book %+v", input)
+	uc.log.WithField("addbook", input).Info("create book")
+
+	existing, err := uc.repo.GetBookByTitleAndAuthor(ctx, input.Title, input.Author)
+	if err != nil {
+		return err
+	}
+
+	if existing != nil {
+		uc.log.WithField("addbook", input).Info("book with same title and author already exists")
+		return errors.New("book with same title and author already exists")
+	}
 
 	book := &entity.Book{
 		Title:    input.Title,
@@ -32,22 +44,21 @@ func (uc *BookUsecase) AddBook(ctx context.Context, input dto.CreateBookRequest)
 }
 
 func (uc *BookUsecase) GetAllBooks(ctx context.Context, offset, limit int) ([]entity.Book, error) {
-	uc.log.Info(fmt.Sprintf("get all book offset: %v, limit: %v", offset, limit))
-
+	uc.log.WithField("getallbooks", fmt.Sprintf("%v, %v", offset, limit)).Info("get all book")
 	return uc.repo.GetAllBook(ctx, offset, limit)
 }
 
 func (uc *BookUsecase) GetBookByID(ctx context.Context, id int64) (*entity.Book, error) {
-	uc.log.Infof("get book %+v", id)
+	uc.log.WithField("getbookbyid", fmt.Sprintf("id: %v ", id)).Info("get book by id")
 	return uc.repo.GetBookByID(ctx, id)
 }
 
 func (uc *BookUsecase) UpdateBook(ctx context.Context, id int64, input dto.UpdateBookRequest) error {
-	uc.log.Infof("update book %+v", input)
+	uc.log.WithField("updatebook", fmt.Sprintf("request: %v", input)).Info("update book")
 
 	book, err := uc.repo.GetBookByID(ctx, id)
 	if err != nil {
-		uc.log.Error("error getting book by id: ", err)
+		log.Error("book", "updatebook", fmt.Sprintf("error getting book, id: %v", id), err)
 		return err
 	}
 	book.Title = input.Title
@@ -59,6 +70,6 @@ func (uc *BookUsecase) UpdateBook(ctx context.Context, id int64, input dto.Updat
 }
 
 func (uc *BookUsecase) DeleteBook(ctx context.Context, id int64) error {
-	uc.log.Infof("delete book %+v", id)
+	uc.log.WithField("deletebook", fmt.Sprintf("id: %v ", id)).Info("delete book")
 	return uc.repo.DeleteBook(ctx, id)
 }

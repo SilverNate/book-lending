@@ -235,6 +235,66 @@ func (_c *IBookRepository_GetBookByID_Call) RunAndReturn(run func(context.Contex
 	return _c
 }
 
+// GetBookByTitleAndAuthor provides a mock function with given fields: ctx, title, author
+func (_m *IBookRepository) GetBookByTitleAndAuthor(ctx context.Context, title string, author string) (*entity.Book, error) {
+	ret := _m.Called(ctx, title, author)
+
+	if len(ret) == 0 {
+		panic("no return value specified for GetBookByTitleAndAuthor")
+	}
+
+	var r0 *entity.Book
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) (*entity.Book, error)); ok {
+		return rf(ctx, title, author)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, string, string) *entity.Book); ok {
+		r0 = rf(ctx, title, author)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).(*entity.Book)
+		}
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, string, string) error); ok {
+		r1 = rf(ctx, title, author)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// IBookRepository_GetBookByTitleAndAuthor_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetBookByTitleAndAuthor'
+type IBookRepository_GetBookByTitleAndAuthor_Call struct {
+	*mock.Call
+}
+
+// GetBookByTitleAndAuthor is a helper method to define mock.On call
+//   - ctx context.Context
+//   - title string
+//   - author string
+func (_e *IBookRepository_Expecter) GetBookByTitleAndAuthor(ctx interface{}, title interface{}, author interface{}) *IBookRepository_GetBookByTitleAndAuthor_Call {
+	return &IBookRepository_GetBookByTitleAndAuthor_Call{Call: _e.mock.On("GetBookByTitleAndAuthor", ctx, title, author)}
+}
+
+func (_c *IBookRepository_GetBookByTitleAndAuthor_Call) Run(run func(ctx context.Context, title string, author string)) *IBookRepository_GetBookByTitleAndAuthor_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(string), args[2].(string))
+	})
+	return _c
+}
+
+func (_c *IBookRepository_GetBookByTitleAndAuthor_Call) Return(_a0 *entity.Book, _a1 error) *IBookRepository_GetBookByTitleAndAuthor_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *IBookRepository_GetBookByTitleAndAuthor_Call) RunAndReturn(run func(context.Context, string, string) (*entity.Book, error)) *IBookRepository_GetBookByTitleAndAuthor_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // UpdateBook provides a mock function with given fields: ctx, book
 func (_m *IBookRepository) UpdateBook(ctx context.Context, book *entity.Book) error {
 	ret := _m.Called(ctx, book)

@@ -11,6 +11,7 @@ import (
 	repo "book-lending-api/internal/borrow/repository"
 	"book-lending-api/internal/borrow/usecase"
 	"book-lending-api/pkg/db"
+	"book-lending-api/pkg/infrastructure"
 	"book-lending-api/pkg/logger"
 	"github.com/google/wire"
 	"gorm.io/gorm"
@@ -34,6 +35,7 @@ func InitBorrowHandler() *httpDelivery.BorrowHandler {
 		ProvideEnvConfig,
 		ProvideDatabase,
 		logger.NewLogger,
+		ProvideRedis,
 	)
 	return &httpDelivery.BorrowHandler{}
 }
@@ -44,4 +46,8 @@ func ProvideEnvConfig() *config.EnvConfig {
 
 func ProvideDatabase(cfg *config.EnvConfig) *gorm.DB {
 	return db.InitializeMySQL(cfg)
+}
+
+func ProvideRedis() *infrastructure.RedisClient {
+	return infrastructure.NewRedis()
 }

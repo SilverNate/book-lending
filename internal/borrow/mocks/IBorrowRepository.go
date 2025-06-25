@@ -22,63 +22,6 @@ func (_m *IBorrowRepository) EXPECT() *IBorrowRepository_Expecter {
 	return &IBorrowRepository_Expecter{mock: &_m.Mock}
 }
 
-// CountBorrowsInLast7Days provides a mock function with given fields: ctx, userID
-func (_m *IBorrowRepository) CountBorrowsInLast7Days(ctx context.Context, userID int64) (int, error) {
-	ret := _m.Called(ctx, userID)
-
-	if len(ret) == 0 {
-		panic("no return value specified for CountBorrowsInLast7Days")
-	}
-
-	var r0 int
-	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, int64) (int, error)); ok {
-		return rf(ctx, userID)
-	}
-	if rf, ok := ret.Get(0).(func(context.Context, int64) int); ok {
-		r0 = rf(ctx, userID)
-	} else {
-		r0 = ret.Get(0).(int)
-	}
-
-	if rf, ok := ret.Get(1).(func(context.Context, int64) error); ok {
-		r1 = rf(ctx, userID)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// IBorrowRepository_CountBorrowsInLast7Days_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'CountBorrowsInLast7Days'
-type IBorrowRepository_CountBorrowsInLast7Days_Call struct {
-	*mock.Call
-}
-
-// CountBorrowsInLast7Days is a helper method to define mock.On call
-//   - ctx context.Context
-//   - userID int64
-func (_e *IBorrowRepository_Expecter) CountBorrowsInLast7Days(ctx interface{}, userID interface{}) *IBorrowRepository_CountBorrowsInLast7Days_Call {
-	return &IBorrowRepository_CountBorrowsInLast7Days_Call{Call: _e.mock.On("CountBorrowsInLast7Days", ctx, userID)}
-}
-
-func (_c *IBorrowRepository_CountBorrowsInLast7Days_Call) Run(run func(ctx context.Context, userID int64)) *IBorrowRepository_CountBorrowsInLast7Days_Call {
-	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(context.Context), args[1].(int64))
-	})
-	return _c
-}
-
-func (_c *IBorrowRepository_CountBorrowsInLast7Days_Call) Return(_a0 int, _a1 error) *IBorrowRepository_CountBorrowsInLast7Days_Call {
-	_c.Call.Return(_a0, _a1)
-	return _c
-}
-
-func (_c *IBorrowRepository_CountBorrowsInLast7Days_Call) RunAndReturn(run func(context.Context, int64) (int, error)) *IBorrowRepository_CountBorrowsInLast7Days_Call {
-	_c.Call.Return(run)
-	return _c
-}
-
 // CreateBorrowing provides a mock function with given fields: ctx, b
 func (_m *IBorrowRepository) CreateBorrowing(ctx context.Context, b *entity.Borrowing) error {
 	ret := _m.Called(ctx, b)
@@ -126,72 +69,12 @@ func (_c *IBorrowRepository_CreateBorrowing_Call) RunAndReturn(run func(context.
 	return _c
 }
 
-// FindActiveByUserAndBook provides a mock function with given fields: ctx, userID, bookID
-func (_m *IBorrowRepository) FindActiveByUserAndBook(ctx context.Context, userID int64, bookID int64) (*entity.Borrowing, error) {
-	ret := _m.Called(ctx, userID, bookID)
-
-	if len(ret) == 0 {
-		panic("no return value specified for FindActiveByUserAndBook")
-	}
-
-	var r0 *entity.Borrowing
-	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) (*entity.Borrowing, error)); ok {
-		return rf(ctx, userID, bookID)
-	}
-	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) *entity.Borrowing); ok {
-		r0 = rf(ctx, userID, bookID)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*entity.Borrowing)
-		}
-	}
-
-	if rf, ok := ret.Get(1).(func(context.Context, int64, int64) error); ok {
-		r1 = rf(ctx, userID, bookID)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// IBorrowRepository_FindActiveByUserAndBook_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindActiveByUserAndBook'
-type IBorrowRepository_FindActiveByUserAndBook_Call struct {
-	*mock.Call
-}
-
-// FindActiveByUserAndBook is a helper method to define mock.On call
-//   - ctx context.Context
-//   - userID int64
-//   - bookID int64
-func (_e *IBorrowRepository_Expecter) FindActiveByUserAndBook(ctx interface{}, userID interface{}, bookID interface{}) *IBorrowRepository_FindActiveByUserAndBook_Call {
-	return &IBorrowRepository_FindActiveByUserAndBook_Call{Call: _e.mock.On("FindActiveByUserAndBook", ctx, userID, bookID)}
-}
-
-func (_c *IBorrowRepository_FindActiveByUserAndBook_Call) Run(run func(ctx context.Context, userID int64, bookID int64)) *IBorrowRepository_FindActiveByUserAndBook_Call {
-	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(context.Context), args[1].(int64), args[2].(int64))
-	})
-	return _c
-}
-
-func (_c *IBorrowRepository_FindActiveByUserAndBook_Call) Return(_a0 *entity.Borrowing, _a1 error) *IBorrowRepository_FindActiveByUserAndBook_Call {
-	_c.Call.Return(_a0, _a1)
-	return _c
-}
-
-func (_c *IBorrowRepository_FindActiveByUserAndBook_Call) RunAndReturn(run func(context.Context, int64, int64) (*entity.Borrowing, error)) *IBorrowRepository_FindActiveByUserAndBook_Call {
-	_c.Call.Return(run)
-	return _c
-}
-
-// FindBorrowingByID provides a mock function with given fields: ctx, id
-func (_m *IBorrowRepository) FindBorrowingByID(ctx context.Context, id int64) (*entity.Borrowing, error) {
+// GetBorrowingByID provides a mock function with given fields: ctx, id
+func (_m *IBorrowRepository) GetBorrowingByID(ctx context.Context, id int64) (*entity.Borrowing, error) {
 	ret := _m.Called(ctx, id)
 
 	if len(ret) == 0 {
-		panic("no return value specified for FindBorrowingByID")
+		panic("no return value specified for GetBorrowingByID")
 	}
 
 	var r0 *entity.Borrowing
@@ -216,31 +99,31 @@ func (_m *IBorrowRepository) FindBorrowingByID(ctx context.Context, id int64) (*
 	return r0, r1
 }
 
-// IBorrowRepository_FindBorrowingByID_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'FindBorrowingByID'
-type IBorrowRepository_FindBorrowingByID_Call struct {
+// IBorrowRepository_GetBorrowingByID_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetBorrowingByID'
+type IBorrowRepository_GetBorrowingByID_Call struct {
 	*mock.Call
 }
 
-// FindBorrowingByID is a helper method to define mock.On call
+// GetBorrowingByID is a helper method to define mock.On call
 //   - ctx context.Context
 //   - id int64
-func (_e *IBorrowRepository_Expecter) FindBorrowingByID(ctx interface{}, id interface{}) *IBorrowRepository_FindBorrowingByID_Call {
-	return &IBorrowRepository_FindBorrowingByID_Call{Call: _e.mock.On("FindBorrowingByID", ctx, id)}
+func (_e *IBorrowRepository_Expecter) GetBorrowingByID(ctx interface{}, id interface{}) *IBorrowRepository_GetBorrowingByID_Call {
+	return &IBorrowRepository_GetBorrowingByID_Call{Call: _e.mock.On("GetBorrowingByID", ctx, id)}
 }
 
-func (_c *IBorrowRepository_FindBorrowingByID_Call) Run(run func(ctx context.Context, id int64)) *IBorrowRepository_FindBorrowingByID_Call {
+func (_c *IBorrowRepository_GetBorrowingByID_Call) Run(run func(ctx context.Context, id int64)) *IBorrowRepository_GetBorrowingByID_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(int64))
 	})
 	return _c
 }
 
-func (_c *IBorrowRepository_FindBorrowingByID_Call) Return(_a0 *entity.Borrowing, _a1 error) *IBorrowRepository_FindBorrowingByID_Call {
+func (_c *IBorrowRepository_GetBorrowingByID_Call) Return(_a0 *entity.Borrowing, _a1 error) *IBorrowRepository_GetBorrowingByID_Call {
 	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *IBorrowRepository_FindBorrowingByID_Call) RunAndReturn(run func(context.Context, int64) (*entity.Borrowing, error)) *IBorrowRepository_FindBorrowingByID_Call {
+func (_c *IBorrowRepository_GetBorrowingByID_Call) RunAndReturn(run func(context.Context, int64) (*entity.Borrowing, error)) *IBorrowRepository_GetBorrowingByID_Call {
 	_c.Call.Return(run)
 	return _c
 }
@@ -288,6 +171,64 @@ func (_c *IBorrowRepository_InsertOrUpdateBorrowing_Call) Return(_a0 error) *IBo
 }
 
 func (_c *IBorrowRepository_InsertOrUpdateBorrowing_Call) RunAndReturn(run func(context.Context, *entity.Borrowing) error) *IBorrowRepository_InsertOrUpdateBorrowing_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
+// IsBookBorrowed provides a mock function with given fields: ctx, userID, bookID
+func (_m *IBorrowRepository) IsBookBorrowed(ctx context.Context, userID int64, bookID int64) (bool, error) {
+	ret := _m.Called(ctx, userID, bookID)
+
+	if len(ret) == 0 {
+		panic("no return value specified for IsBookBorrowed")
+	}
+
+	var r0 bool
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) (bool, error)); ok {
+		return rf(ctx, userID, bookID)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, int64, int64) bool); ok {
+		r0 = rf(ctx, userID, bookID)
+	} else {
+		r0 = ret.Get(0).(bool)
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, int64, int64) error); ok {
+		r1 = rf(ctx, userID, bookID)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// IBorrowRepository_IsBookBorrowed_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'IsBookBorrowed'
+type IBorrowRepository_IsBookBorrowed_Call struct {
+	*mock.Call
+}
+
+// IsBookBorrowed is a helper method to define mock.On call
+//   - ctx context.Context
+//   - userID int64
+//   - bookID int64
+func (_e *IBorrowRepository_Expecter) IsBookBorrowed(ctx interface{}, userID interface{}, bookID interface{}) *IBorrowRepository_IsBookBorrowed_Call {
+	return &IBorrowRepository_IsBookBorrowed_Call{Call: _e.mock.On("IsBookBorrowed", ctx, userID, bookID)}
+}
+
+func (_c *IBorrowRepository_IsBookBorrowed_Call) Run(run func(ctx context.Context, userID int64, bookID int64)) *IBorrowRepository_IsBookBorrowed_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(int64), args[2].(int64))
+	})
+	return _c
+}
+
+func (_c *IBorrowRepository_IsBookBorrowed_Call) Return(_a0 bool, _a1 error) *IBorrowRepository_IsBookBorrowed_Call {
+	_c.Call.Return(_a0, _a1)
+	return _c
+}
+
+func (_c *IBorrowRepository_IsBookBorrowed_Call) RunAndReturn(run func(context.Context, int64, int64) (bool, error)) *IBorrowRepository_IsBookBorrowed_Call {
 	_c.Call.Return(run)
 	return _c
 }

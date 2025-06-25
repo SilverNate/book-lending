@@ -13,6 +13,7 @@ import (
 	"book-lending-api/internal/book/usecase"
 	"book-lending-api/pkg/db"
 	"book-lending-api/pkg/logger"
+	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
 
@@ -21,10 +22,10 @@ import (
 func InitBookHandler() *http.Handler {
 	envConfig := ProvideEnvConfig()
 	db := ProvideDatabase(envConfig)
-	logrusLogger := logger.NewLogger()
-	bookRepository := repository.NewBookRepository(db, logrusLogger)
-	bookUsecase := usecase.NewBookUseCase(bookRepository, logrusLogger)
-	handler := http.NewHandler(bookUsecase, logrusLogger)
+	logger := ProvideLogger()
+	bookRepository := repository.NewBookRepository(db, logger)
+	bookUsecase := usecase.NewBookUseCase(bookRepository, logger)
+	handler := http.NewHandler(bookUsecase, logger)
 	return handler
 }
 
@@ -36,4 +37,8 @@ func ProvideEnvConfig() *config.EnvConfig {
 
 func ProvideDatabase(cfg *config.EnvConfig) *gorm.DB {
 	return db.InitializeMySQL(cfg)
+}
+
+func ProvideLogger() *logrus.Logger {
+	return logger.NewLogger()
 }

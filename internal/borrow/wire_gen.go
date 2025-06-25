@@ -14,6 +14,7 @@ import (
 	"book-lending-api/internal/borrow/repository"
 	usecase2 "book-lending-api/internal/borrow/usecase"
 	"book-lending-api/pkg/db"
+	"book-lending-api/pkg/infrastructure"
 	"book-lending-api/pkg/logger"
 	"gorm.io/gorm"
 )
@@ -27,7 +28,8 @@ func InitBorrowHandler() *http.BorrowHandler {
 	borrowRepository := repository.NewBorrowRepository(db, logrusLogger)
 	bookRepository := repository2.NewBookRepository(db, logrusLogger)
 	bookUsecase := usecase.NewBookUseCase(bookRepository, logrusLogger)
-	borrowUsecase := usecase2.NewBorrowUsecase(borrowRepository, logrusLogger, bookUsecase)
+	redisClient := ProvideRedis()
+	borrowUsecase := usecase2.NewBorrowUsecase(borrowRepository, logrusLogger, bookUsecase, redisClient)
 	borrowHandler := http.NewBorrowHandler(borrowUsecase, logrusLogger)
 	return borrowHandler
 }
@@ -40,4 +42,8 @@ func ProvideEnvConfig() *config.EnvConfig {
 
 func ProvideDatabase(cfg *config.EnvConfig) *gorm.DB {
 	return db.InitializeMySQL(cfg)
+}
+
+func ProvideRedis() *infrastructure.RedisClient {
+	return infrastructure.NewRedis()
 }

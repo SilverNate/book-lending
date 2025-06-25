@@ -13,7 +13,7 @@ import (
 	"github.com/stretchr/testify/mock"
 )
 
-func TestCreateBook_Success(t *testing.T) {
+func TestAddBook_Success(t *testing.T) {
 	mockRepo := new(mocks.IBookRepository)
 	log := logrus.New()
 	bookUC := usecase.NewBookUseCase(mockRepo, log)
@@ -27,8 +27,9 @@ func TestCreateBook_Success(t *testing.T) {
 	}
 
 	mockRepo.On("CreateBook", mock.Anything, mock.Anything).Return(nil)
+	mockRepo.On("GetBookByTitleAndAuthor", mock.Anything, mock.Anything, mock.Anything).Return(nil, nil)
 
-	err := bookUC.Create(context.Background(), req)
+	err := bookUC.AddBook(context.Background(), req)
 
 	assert.NoError(t, err)
 	mockRepo.AssertExpectations(t)
@@ -43,7 +44,7 @@ func TestGetAllBook_Success(t *testing.T) {
 		{ID: 1, Title: "Book 1"},
 	}, nil)
 
-	books, err := bookUC.GetAll(context.Background(), 0, 10)
+	books, err := bookUC.GetAllBooks(context.Background(), 0, 10)
 
 	assert.NoError(t, err)
 	assert.Len(t, books, 1)
@@ -64,7 +65,7 @@ func TestUpdateBook_Success(t *testing.T) {
 	mockRepo.On("GetBookByID", mock.Anything, int64(1)).Return(book, nil)
 	mockRepo.On("UpdateBook", mock.Anything, mock.Anything).Return(nil)
 
-	err := bookUC.Update(context.Background(), 1, dto.UpdateBookRequest{
+	err := bookUC.UpdateBook(context.Background(), 1, dto.UpdateBookRequest{
 		Title:    "New Title",
 		Author:   "New Author",
 		ISBN:     "123456",
