@@ -24,7 +24,7 @@ func NewBorrowUsecase(repo repository.IBorrowRepository, log *logrus.Logger, boo
 func (uc *BorrowUsecase) BorrowBooks(ctx context.Context, userID int64, req dto.BorrowRequest) error {
 	uc.log.Infof("borrowing books userId: %v, request: %v", userID, req)
 
-	book, err := uc.bookUsecase.GetByID(ctx, req.BookID)
+	book, err := uc.bookUsecase.GetBookByID(ctx, req.BookID)
 	if err != nil || book == nil {
 		uc.log.Errorf("error get book when borrowing: %v", err)
 		return errors.New("book not found")

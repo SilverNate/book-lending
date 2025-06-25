@@ -1,0 +1,296 @@
+definitions:
+  dto.BorrowRequest:
+    properties:
+      book_id:
+        type: integer
+    required:
+    - book_id
+    type: object
+  dto.CreateBookRequest:
+    properties:
+      author:
+        type: string
+      category:
+        type: string
+      isbn:
+        type: string
+      quantity:
+        minimum: 1
+        type: integer
+      title:
+        type: string
+    required:
+    - author
+    - isbn
+    - quantity
+    - title
+    type: object
+  dto.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.ReturnRequest:
+    properties:
+      borrowing_id:
+        type: integer
+    required:
+    - borrowing_id
+    type: object
+  response.APIResponse:
+    properties:
+      data: {}
+      error:
+        type: string
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login using email and password
+      parameters:
+      - description: Login Request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Login user
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register using email and password
+      parameters:
+      - description: Register Request
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Register user
+      tags:
+      - Auth
+  /books:
+    get:
+      description: Authenticated user borrows a book
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      - description: Page size
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: List all books
+      tags:
+      - Book
+    post:
+      consumes:
+      - application/json
+      description: Authenticated user borrows a book
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Book Data
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateBookRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Create a new book
+      tags:
+      - Book
+  /books/id:
+    delete:
+      description: Authenticated user borrows a book
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Delete book by id
+      tags:
+      - Book
+    get:
+      description: Authenticated user borrows a book
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Get book by id
+      tags:
+      - Book
+    put:
+      description: Authenticated user borrows a book
+      parameters:
+      - description: Book ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Update book by id
+      tags:
+      - Book
+  /borrowing/borrow:
+    post:
+      consumes:
+      - application/json
+      description: Authenticated user borrows a book
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Borrow request
+        in: body
+        name: borrow
+        required: true
+        schema:
+          $ref: '#/definitions/dto.BorrowRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      security:
+      - BearerAuth: []
+      summary: Borrow a book
+      tags:
+      - Borrow
+  /borrowing/return:
+    post:
+      consumes:
+      - application/json
+      description: Authenticated user returns a book
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Return request
+        in: body
+        name: borrow
+        required: true
+        schema:
+          $ref: '#/definitions/dto.ReturnRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.APIResponse'
+      summary: Return a borrowed book
+      tags:
+      - Borrow
+swagger: "2.0"

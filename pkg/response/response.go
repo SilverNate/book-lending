@@ -44,3 +44,7 @@ func Unauthorized(c *gin.Context, msg string) {
 func Internal(c *gin.Context, msg string) {
 	Error(c, http.StatusInternalServerError, msg)
 }
+
+func NotFound(c *gin.Context, msg string) {
+	Error(c, http.StatusNotFound, msg)
+}

@@ -17,6 +17,16 @@ func NewHandler(uc usecase.IUserUsecase, log *logrus.Logger) *Handler {
 	return &Handler{uc: uc, log: log}
 }
 
+// Register godoc
+// @Summary Register user
+// @Description Register using email and password
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param user body dto.RegisterRequest true "Register Request"
+// @Success 200 {object} response.APIResponse
+// @Failure 400 {object} response.APIResponse
+// @Router /auth/register [post]
 func (h *Handler) Register(c *gin.Context) {
 	var input dto.RegisterRequest
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -34,6 +44,16 @@ func (h *Handler) Register(c *gin.Context) {
 	response.Created(c, "user registered successfully")
 }
 
+// Login godoc
+// @Summary Login user
+// @Description Login using email and password
+// @Tags Auth
+// @Accept json
+// @Produce json
+// @Param user body dto.LoginRequest true "Login Request"
+// @Success 200 {object} response.APIResponse
+// @Failure 400 {object} response.APIResponse
+// @Router /auth/login [post]
 func (h *Handler) Login(c *gin.Context) {
 	var input dto.LoginRequest
 	if err := c.ShouldBindJSON(&input); err != nil {

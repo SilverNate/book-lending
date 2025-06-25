@@ -7,6 +7,8 @@ import (
 	"book-lending-api/internal/middleware"
 	"book-lending-api/internal/user"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"time"
@@ -18,6 +20,8 @@ func main() {
 	userHandler := user.InitUserHandler()
 
 	r := gin.Default()
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	jwtService := middleware.NewJWTService(cfg)
 	authMiddleware := middleware.JWTMiddleware(jwtService)
 
@@ -40,8 +44,8 @@ func main() {
 	borrowHandler := borrow.InitBorrowHandler()
 	borrowPath := r.Group("/borrowing", authMiddleware)
 	{
-		borrowPath.POST("/borrow", borrowHandler.Borrow)
-		borrowPath.POST("/return", borrowHandler.Return)
+		borrowPath.POST("/borrow", borrowHandler.BorrowBook)
+		borrowPath.POST("/return", borrowHandler.ReturnBook)
 	}
 
 	s := &http.Server{

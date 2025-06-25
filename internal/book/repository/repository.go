@@ -3,9 +3,13 @@ package repository
 import (
 	"book-lending-api/internal/book/entity"
 	"context"
+	"errors"
+	"fmt"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 )
+
+var ErrBookNotFound = errors.New("book not found")
 
 type BookRepository struct {
 	db  *gorm.DB
@@ -40,7 +44,10 @@ func (r *BookRepository) GetBookByID(ctx context.Context, id int64) (*entity.Boo
 	err := r.db.First(&book, id).Error
 	if err != nil {
 		r.log.Error("error get book by id: ", err)
-		return &book, err
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return nil, ErrBookNotFound
+		}
+		return &book, fmt.Errorf("get book by id failed: %w", err)
 	}
 	return &book, err
 }

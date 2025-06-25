@@ -22,7 +22,7 @@ func TestBorrow_Success(t *testing.T) {
 	log := logrus.New()
 	uc := usecase.NewBorrowUsecase(borrowRepo, log, bookRepo)
 
-	bookRepo.On("GetByID", mock.Anything, int64(10)).Return(&entity.Book{ID: 10, Quantity: 3}, nil)
+	bookRepo.On("GetBookByID", mock.Anything, int64(10)).Return(&entity.Book{ID: 10, Quantity: 3}, nil)
 	borrowRepo.On("CountBorrowsInLast7Days", mock.Anything, int64(1)).Return(1, nil)
 	borrowRepo.On("FindActiveByUserAndBook", mock.Anything, int64(1), int64(10)).Return(nil, errors.New("not found"))
 	borrowRepo.On("CreateBorrowing", mock.Anything, mock.AnythingOfType("*entity.Borrowing")).Return(nil)
@@ -60,7 +60,7 @@ func TestBorrow_Fail_BookNotFound(t *testing.T) {
 	log := logrus.New()
 	uc := usecase.NewBorrowUsecase(borrowRepo, log, bookRepo)
 
-	bookRepo.On("GetByID", mock.Anything, int64(99)).Return(nil, errors.New("not found"))
+	bookRepo.On("GetBookByID", mock.Anything, int64(99)).Return(nil, errors.New("not found"))
 
 	err := uc.BorrowBooks(context.Background(), 1, dto.BorrowRequest{BookID: 99})
 	assert.EqualError(t, err, "book not found")

@@ -23,12 +23,12 @@ func (_m *IBookUseCase) EXPECT() *IBookUseCase_Expecter {
 	return &IBookUseCase_Expecter{mock: &_m.Mock}
 }
 
-// Create provides a mock function with given fields: ctx, input
-func (_m *IBookUseCase) Create(ctx context.Context, input dto.CreateBookRequest) error {
+// AddBook provides a mock function with given fields: ctx, input
+func (_m *IBookUseCase) AddBook(ctx context.Context, input dto.CreateBookRequest) error {
 	ret := _m.Called(ctx, input)
 
 	if len(ret) == 0 {
-		panic("no return value specified for Create")
+		panic("no return value specified for AddBook")
 	}
 
 	var r0 error
@@ -41,41 +41,41 @@ func (_m *IBookUseCase) Create(ctx context.Context, input dto.CreateBookRequest)
 	return r0
 }
 
-// IBookUseCase_Create_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Create'
-type IBookUseCase_Create_Call struct {
+// IBookUseCase_AddBook_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'AddBook'
+type IBookUseCase_AddBook_Call struct {
 	*mock.Call
 }
 
-// Create is a helper method to define mock.On call
+// AddBook is a helper method to define mock.On call
 //   - ctx context.Context
 //   - input dto.CreateBookRequest
-func (_e *IBookUseCase_Expecter) Create(ctx interface{}, input interface{}) *IBookUseCase_Create_Call {
-	return &IBookUseCase_Create_Call{Call: _e.mock.On("Create", ctx, input)}
+func (_e *IBookUseCase_Expecter) AddBook(ctx interface{}, input interface{}) *IBookUseCase_AddBook_Call {
+	return &IBookUseCase_AddBook_Call{Call: _e.mock.On("AddBook", ctx, input)}
 }
 
-func (_c *IBookUseCase_Create_Call) Run(run func(ctx context.Context, input dto.CreateBookRequest)) *IBookUseCase_Create_Call {
+func (_c *IBookUseCase_AddBook_Call) Run(run func(ctx context.Context, input dto.CreateBookRequest)) *IBookUseCase_AddBook_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(dto.CreateBookRequest))
 	})
 	return _c
 }
 
-func (_c *IBookUseCase_Create_Call) Return(_a0 error) *IBookUseCase_Create_Call {
+func (_c *IBookUseCase_AddBook_Call) Return(_a0 error) *IBookUseCase_AddBook_Call {
 	_c.Call.Return(_a0)
 	return _c
 }
 
-func (_c *IBookUseCase_Create_Call) RunAndReturn(run func(context.Context, dto.CreateBookRequest) error) *IBookUseCase_Create_Call {
+func (_c *IBookUseCase_AddBook_Call) RunAndReturn(run func(context.Context, dto.CreateBookRequest) error) *IBookUseCase_AddBook_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// Delete provides a mock function with given fields: ctx, id
-func (_m *IBookUseCase) Delete(ctx context.Context, id int64) error {
+// DeleteBook provides a mock function with given fields: ctx, id
+func (_m *IBookUseCase) DeleteBook(ctx context.Context, id int64) error {
 	ret := _m.Called(ctx, id)
 
 	if len(ret) == 0 {
-		panic("no return value specified for Delete")
+		panic("no return value specified for DeleteBook")
 	}
 
 	var r0 error
@@ -88,41 +88,41 @@ func (_m *IBookUseCase) Delete(ctx context.Context, id int64) error {
 	return r0
 }
 
-// IBookUseCase_Delete_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Delete'
-type IBookUseCase_Delete_Call struct {
+// IBookUseCase_DeleteBook_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'DeleteBook'
+type IBookUseCase_DeleteBook_Call struct {
 	*mock.Call
 }
 
-// Delete is a helper method to define mock.On call
+// DeleteBook is a helper method to define mock.On call
 //   - ctx context.Context
 //   - id int64
-func (_e *IBookUseCase_Expecter) Delete(ctx interface{}, id interface{}) *IBookUseCase_Delete_Call {
-	return &IBookUseCase_Delete_Call{Call: _e.mock.On("Delete", ctx, id)}
+func (_e *IBookUseCase_Expecter) DeleteBook(ctx interface{}, id interface{}) *IBookUseCase_DeleteBook_Call {
+	return &IBookUseCase_DeleteBook_Call{Call: _e.mock.On("DeleteBook", ctx, id)}
 }
 
-func (_c *IBookUseCase_Delete_Call) Run(run func(ctx context.Context, id int64)) *IBookUseCase_Delete_Call {
+func (_c *IBookUseCase_DeleteBook_Call) Run(run func(ctx context.Context, id int64)) *IBookUseCase_DeleteBook_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(int64))
 	})
 	return _c
 }
 
-func (_c *IBookUseCase_Delete_Call) Return(_a0 error) *IBookUseCase_Delete_Call {
+func (_c *IBookUseCase_DeleteBook_Call) Return(_a0 error) *IBookUseCase_DeleteBook_Call {
 	_c.Call.Return(_a0)
 	return _c
 }
 
-func (_c *IBookUseCase_Delete_Call) RunAndReturn(run func(context.Context, int64) error) *IBookUseCase_Delete_Call {
+func (_c *IBookUseCase_DeleteBook_Call) RunAndReturn(run func(context.Context, int64) error) *IBookUseCase_DeleteBook_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// GetAll provides a mock function with given fields: ctx, offset, limit
-func (_m *IBookUseCase) GetAll(ctx context.Context, offset int, limit int) ([]entity.Book, error) {
+// GetAllBooks provides a mock function with given fields: ctx, offset, limit
+func (_m *IBookUseCase) GetAllBooks(ctx context.Context, offset int, limit int) ([]entity.Book, error) {
 	ret := _m.Called(ctx, offset, limit)
 
 	if len(ret) == 0 {
-		panic("no return value specified for GetAll")
+		panic("no return value specified for GetAllBooks")
 	}
 
 	var r0 []entity.Book
@@ -147,42 +147,42 @@ func (_m *IBookUseCase) GetAll(ctx context.Context, offset int, limit int) ([]en
 	return r0, r1
 }
 
-// IBookUseCase_GetAll_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetAll'
-type IBookUseCase_GetAll_Call struct {
+// IBookUseCase_GetAllBooks_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetAllBooks'
+type IBookUseCase_GetAllBooks_Call struct {
 	*mock.Call
 }
 
-// GetAll is a helper method to define mock.On call
+// GetAllBooks is a helper method to define mock.On call
 //   - ctx context.Context
 //   - offset int
 //   - limit int
-func (_e *IBookUseCase_Expecter) GetAll(ctx interface{}, offset interface{}, limit interface{}) *IBookUseCase_GetAll_Call {
-	return &IBookUseCase_GetAll_Call{Call: _e.mock.On("GetAll", ctx, offset, limit)}
+func (_e *IBookUseCase_Expecter) GetAllBooks(ctx interface{}, offset interface{}, limit interface{}) *IBookUseCase_GetAllBooks_Call {
+	return &IBookUseCase_GetAllBooks_Call{Call: _e.mock.On("GetAllBooks", ctx, offset, limit)}
 }
 
-func (_c *IBookUseCase_GetAll_Call) Run(run func(ctx context.Context, offset int, limit int)) *IBookUseCase_GetAll_Call {
+func (_c *IBookUseCase_GetAllBooks_Call) Run(run func(ctx context.Context, offset int, limit int)) *IBookUseCase_GetAllBooks_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(int), args[2].(int))
 	})
 	return _c
 }
 
-func (_c *IBookUseCase_GetAll_Call) Return(_a0 []entity.Book, _a1 error) *IBookUseCase_GetAll_Call {
+func (_c *IBookUseCase_GetAllBooks_Call) Return(_a0 []entity.Book, _a1 error) *IBookUseCase_GetAllBooks_Call {
 	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *IBookUseCase_GetAll_Call) RunAndReturn(run func(context.Context, int, int) ([]entity.Book, error)) *IBookUseCase_GetAll_Call {
+func (_c *IBookUseCase_GetAllBooks_Call) RunAndReturn(run func(context.Context, int, int) ([]entity.Book, error)) *IBookUseCase_GetAllBooks_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// GetByID provides a mock function with given fields: ctx, id
-func (_m *IBookUseCase) GetByID(ctx context.Context, id int64) (*entity.Book, error) {
+// GetBookByID provides a mock function with given fields: ctx, id
+func (_m *IBookUseCase) GetBookByID(ctx context.Context, id int64) (*entity.Book, error) {
 	ret := _m.Called(ctx, id)
 
 	if len(ret) == 0 {
-		panic("no return value specified for GetByID")
+		panic("no return value specified for GetBookByID")
 	}
 
 	var r0 *entity.Book
@@ -207,41 +207,41 @@ func (_m *IBookUseCase) GetByID(ctx context.Context, id int64) (*entity.Book, er
 	return r0, r1
 }
 
-// IBookUseCase_GetByID_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetByID'
-type IBookUseCase_GetByID_Call struct {
+// IBookUseCase_GetBookByID_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'GetBookByID'
+type IBookUseCase_GetBookByID_Call struct {
 	*mock.Call
 }
 
-// GetByID is a helper method to define mock.On call
+// GetBookByID is a helper method to define mock.On call
 //   - ctx context.Context
 //   - id int64
-func (_e *IBookUseCase_Expecter) GetByID(ctx interface{}, id interface{}) *IBookUseCase_GetByID_Call {
-	return &IBookUseCase_GetByID_Call{Call: _e.mock.On("GetByID", ctx, id)}
+func (_e *IBookUseCase_Expecter) GetBookByID(ctx interface{}, id interface{}) *IBookUseCase_GetBookByID_Call {
+	return &IBookUseCase_GetBookByID_Call{Call: _e.mock.On("GetBookByID", ctx, id)}
 }
 
-func (_c *IBookUseCase_GetByID_Call) Run(run func(ctx context.Context, id int64)) *IBookUseCase_GetByID_Call {
+func (_c *IBookUseCase_GetBookByID_Call) Run(run func(ctx context.Context, id int64)) *IBookUseCase_GetBookByID_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(int64))
 	})
 	return _c
 }
 
-func (_c *IBookUseCase_GetByID_Call) Return(_a0 *entity.Book, _a1 error) *IBookUseCase_GetByID_Call {
+func (_c *IBookUseCase_GetBookByID_Call) Return(_a0 *entity.Book, _a1 error) *IBookUseCase_GetBookByID_Call {
 	_c.Call.Return(_a0, _a1)
 	return _c
 }
 
-func (_c *IBookUseCase_GetByID_Call) RunAndReturn(run func(context.Context, int64) (*entity.Book, error)) *IBookUseCase_GetByID_Call {
+func (_c *IBookUseCase_GetBookByID_Call) RunAndReturn(run func(context.Context, int64) (*entity.Book, error)) *IBookUseCase_GetBookByID_Call {
 	_c.Call.Return(run)
 	return _c
 }
 
-// Update provides a mock function with given fields: ctx, id, input
-func (_m *IBookUseCase) Update(ctx context.Context, id int64, input dto.UpdateBookRequest) error {
+// UpdateBook provides a mock function with given fields: ctx, id, input
+func (_m *IBookUseCase) UpdateBook(ctx context.Context, id int64, input dto.UpdateBookRequest) error {
 	ret := _m.Called(ctx, id, input)
 
 	if len(ret) == 0 {
-		panic("no return value specified for Update")
+		panic("no return value specified for UpdateBook")
 	}
 
 	var r0 error
@@ -254,32 +254,32 @@ func (_m *IBookUseCase) Update(ctx context.Context, id int64, input dto.UpdateBo
 	return r0
 }
 
-// IBookUseCase_Update_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'Update'
-type IBookUseCase_Update_Call struct {
+// IBookUseCase_UpdateBook_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'UpdateBook'
+type IBookUseCase_UpdateBook_Call struct {
 	*mock.Call
 }
 
-// Update is a helper method to define mock.On call
+// UpdateBook is a helper method to define mock.On call
 //   - ctx context.Context
 //   - id int64
 //   - input dto.UpdateBookRequest
-func (_e *IBookUseCase_Expecter) Update(ctx interface{}, id interface{}, input interface{}) *IBookUseCase_Update_Call {
-	return &IBookUseCase_Update_Call{Call: _e.mock.On("Update", ctx, id, input)}
+func (_e *IBookUseCase_Expecter) UpdateBook(ctx interface{}, id interface{}, input interface{}) *IBookUseCase_UpdateBook_Call {
+	return &IBookUseCase_UpdateBook_Call{Call: _e.mock.On("UpdateBook", ctx, id, input)}
 }
 
-func (_c *IBookUseCase_Update_Call) Run(run func(ctx context.Context, id int64, input dto.UpdateBookRequest)) *IBookUseCase_Update_Call {
+func (_c *IBookUseCase_UpdateBook_Call) Run(run func(ctx context.Context, id int64, input dto.UpdateBookRequest)) *IBookUseCase_UpdateBook_Call {
 	_c.Call.Run(func(args mock.Arguments) {
 		run(args[0].(context.Context), args[1].(int64), args[2].(dto.UpdateBookRequest))
 	})
 	return _c
 }
 
-func (_c *IBookUseCase_Update_Call) Return(_a0 error) *IBookUseCase_Update_Call {
+func (_c *IBookUseCase_UpdateBook_Call) Return(_a0 error) *IBookUseCase_UpdateBook_Call {
 	_c.Call.Return(_a0)
 	return _c
 }
 
-func (_c *IBookUseCase_Update_Call) RunAndReturn(run func(context.Context, int64, dto.UpdateBookRequest) error) *IBookUseCase_Update_Call {
+func (_c *IBookUseCase_UpdateBook_Call) RunAndReturn(run func(context.Context, int64, dto.UpdateBookRequest) error) *IBookUseCase_UpdateBook_Call {
 	_c.Call.Return(run)
 	return _c
 }
