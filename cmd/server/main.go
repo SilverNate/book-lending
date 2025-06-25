@@ -8,9 +8,9 @@ import (
 	"book-lending-api/internal/user"
 	"book-lending-api/pkg/infrastructure"
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"log"
 	"net/http"
 	"time"
 )
@@ -19,11 +19,16 @@ func main() {
 	cfg := config.LoadEnv()
 
 	userHandler := user.InitUserHandler()
-	infrastructure.SetupElasticLogger()
 	_, err := infrastructure.InitInfra()
 	if err != nil {
 		log.Fatalf("failed to initialize redis: %v", err)
 	}
+
+	infrastructure.SetupElasticLogger()
+	log.WithFields(log.Fields{
+		"env":    "docker",
+		"module": "startup",
+	}).Info("App started and logging initialized")
 
 	r := gin.Default()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
