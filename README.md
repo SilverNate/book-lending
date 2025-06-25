@@ -23,8 +23,8 @@ A simple RESTful API for borrowing and returning books, built with Go, Gin, MySQ
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/yourname/book-lending-api.git
-cd book-lending-api
+git clone https://github.com/SilverNate/book-lending.git
+cd book-lending
 ```
 ### 2. Create .env File
 ```bash
