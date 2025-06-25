@@ -62,7 +62,7 @@ migrate -path ./migrations -database "mysql://bookuser:bookpass@tcp(localhost:33
 ```bash
  mockery --name=IBookRepository    --dir=internal/book/repository         --output=internal/book/mocks         --with-expecter
 ```
-### 6. Tech Stack
+### 7. Tech Stack
 ```bash
 Golang
 Gin
@@ -72,4 +72,78 @@ Redis
 Wire
 Logrus + Elasticsearch
 Swagger UI
+```
+
+### 8. Add Sample Postman Curl
+- register
+```bash
+curl --location 'http://localhost:8080/auth/register' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "me@mail.com",
+    "password": "abc12345"
+}'
+```
+- login
+```bash
+- curl --location 'http://localhost:8080/auth/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{"email":"me@mail.com", "password":"abc12345"}'
+```
+- add book
+```bash
+- curl --location 'http://localhost:8080/books' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDkwNjQ4LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.FNSMH2kIk60gdLVWMjEqGTf4rbnJntRZau6qXGPqj2s' \
+--data '{
+    "title": "Clean Architecture",
+    "author": "Robert C. Martin",
+    "isbn": "9780134494166",
+    "category": "Software Engineering",
+    "quantity": 5
+}'
+```
+- get all book
+```bash
+curl --location 'http://localhost:8080/books?page=0&limit=10' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDQ4NDk5LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.rcmlmNvuUMbqpgBVOzFpGHJD1S4UvTHRi9KDzrqOUD8'
+```
+- get book by id
+```bash
+curl --location 'http://localhost:8080/books/1' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDQ4NDk5LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.rcmlmNvuUMbqpgBVOzFpGHJD1S4UvTHRi9KDzrqOUD8'
+```
+- update book
+```bash
+curl --location --request PUT 'http://localhost:8080/books/1' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDQ4NDk5LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.rcmlmNvuUMbqpgBVOzFpGHJD1S4UvTHRi9KDzrqOUD8' \
+--header 'Content-Type: application/json' \
+--data '{
+    "title": "Clean Architecture - Updated",
+    "author": "Robert C. Martin",
+    "isbn": "9780134494166",
+    "category": "Architecture",
+    "quantity": 10
+}'
+```
+- delete book
+```bash
+curl --location --request DELETE 'http://localhost:8080/books/1' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDQ4NDk5LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.rcmlmNvuUMbqpgBVOzFpGHJD1S4UvTHRi9KDzrqOUD8'
+```
+- borrowing book
+```bash
+curl --location 'http://localhost:8080/borrowing/borrow' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDU1MjU5LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.icH0Pynqsx5kb02mfOEC6cNR6K9CEKFTNf7YC_FVtDk' \
+--header 'Content-Type: application/json' \
+--data '{
+    "book_id": 1
+}'
+```
+- return book
+```bash
+curl --location 'http://localhost:8080/borrowing/return' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1lQG1haWwuY29tIiwiZXhwIjoxNzUxMDU1MjU5LCJpc3MiOiJib29rLWxlbmRpbmctYXBpIiwidXNlcl9pZCI6MX0.icH0Pynqsx5kb02mfOEC6cNR6K9CEKFTNf7YC_FVtDk' \
+--header 'Content-Type: application/json' \
+--data '{"borrowing_id": 1}'
 ```
