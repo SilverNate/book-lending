@@ -6,6 +6,7 @@ import (
 	"book-lending-api/internal/borrow"
 	"book-lending-api/internal/middleware"
 	"book-lending-api/internal/user"
+	"book-lending-api/pkg/infrastructure"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -18,6 +19,11 @@ func main() {
 	cfg := config.LoadEnv()
 
 	userHandler := user.InitUserHandler()
+	infrastructure.SetupElasticLogger()
+	_, err := infrastructure.InitInfra()
+	if err != nil {
+		log.Fatalf("failed to initialize redis: %v", err)
+	}
 
 	r := gin.Default()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

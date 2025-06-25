@@ -10,9 +10,10 @@ services:
     depends_on:
       mysql:
           condition: service_healthy
-    environment:
-      - PORT=8080
-      - DB_DSN=bookuser:bookpass@tcp(mysql:3306)/bookdb?parseTime=true
+      elasticsearch:
+          condition: service_healthy
+    env_file:
+      - .env
     command: [ "./main" ]
 
   mysql:
@@ -28,9 +29,41 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "bookuser", "-pbookpass" ]
       interval: 10s
-      retries: 5
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    healthcheck:
+      test: curl --silent --fail http://localhost:9200/_cluster/health || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
 
   migrate:
     image: migrate/migrate
