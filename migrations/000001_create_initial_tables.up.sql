@@ -18,13 +18,12 @@ CREATE TABLE books (
 );
 
 
-CREATE TABLE lendings (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    book_id INT,
-    user_id INT,
-    borrow_date DATE,
-    return_date DATE,
-    returned BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (book_id) REFERENCES books(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+CREATE TABLE borrowings (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    book_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    borrow_date DATETIME NOT NULL,
+    return_date DATETIME,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

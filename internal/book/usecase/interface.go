@@ -6,6 +6,7 @@ import (
 	"context"
 )
 
+// mockery --name=IBookUseCase    --dir=internal/book/usecase         --output=internal/book/mocks         --with-expecter
 type IBookUseCase interface {
 	Create(ctx context.Context, input dto.CreateBookRequest) error
 	GetAll(ctx context.Context, offset, limit int) ([]entity.Book, error)

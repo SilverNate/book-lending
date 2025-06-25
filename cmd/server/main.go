@@ -3,6 +3,7 @@ package main
 import (
 	"book-lending-api/config"
 	"book-lending-api/internal/book"
+	"book-lending-api/internal/borrow"
 	"book-lending-api/internal/middleware"
 	"book-lending-api/internal/user"
 	"github.com/gin-gonic/gin"
@@ -17,7 +18,8 @@ func main() {
 	userHandler := user.InitUserHandler()
 
 	r := gin.Default()
-	authMiddleware := middleware.JWTMiddleware(cfg.JWTSecret)
+	jwtService := middleware.NewJWTService(cfg)
+	authMiddleware := middleware.JWTMiddleware(jwtService)
 
 	auth := r.Group("/auth")
 	{
@@ -33,6 +35,13 @@ func main() {
 		books.GET(":id", bookHandler.GetBooksByID)
 		books.PUT(":id", bookHandler.UpdateBooks)
 		books.DELETE(":id", bookHandler.DeleteBooks)
+	}
+
+	borrowHandler := borrow.InitBorrowHandler()
+	borrowPath := r.Group("/borrowing", authMiddleware)
+	{
+		borrowPath.POST("/borrow", borrowHandler.Borrow)
+		borrowPath.POST("/return", borrowHandler.Return)
 	}
 
 	s := &http.Server{
